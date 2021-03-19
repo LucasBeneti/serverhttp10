@@ -25,10 +25,6 @@ file_extension_dict = {
 }
 
 def encodeImage(fileName):
-    # diretorio onde estão as imagens vai ficar hardcoded por enquanto
-    # relativePath = 'images/' + fileName
-    # absImagePath = os.path.abspath(fileName)
-    print('chegando fileName: ', fileName)
     try:
         with open(fileName,'rb') as imageFile:
             encoded_res = base64.b64encode(imageFile.read())
@@ -40,7 +36,6 @@ def encodeImage(fileName):
         return str(encoded_res)
 
 def getErrorResponse():
-    print('ta vindo do getError')
     file_reader = open('src/404.html')
     responseContent = file_reader.read()
     file_reader.close()
@@ -55,15 +50,12 @@ def getErrorResponse():
     }
     return final_response
 
-# tem que pensar num jeito de retornar esse objeto, é pra facilitar
-# essa parte de ficar passando esse monte de dado de um lado pro outro.
-
 def getResponseContent(fileName):
     file_extension = fileName.split('.')[-1]
     img_extensions = ['gif', 'png', 'jpeg', 'bmp', 'webp']
     final_response = {}
-    print('extensao da file:',file_extension)
-    print('filename entrando na getContent', fileName)
+    # print('extensao da file:',file_extension)
+    # print('filename entrando na getContent', fileName)
     if (fileName == ''):
         print('entrou no primeiro if do getContent')
         with open("src/index.html","rb") as file_reader:
@@ -93,11 +85,9 @@ def checkFileExistance(filePath):
     path_check = os.path.abspath(f'{filePath}')
     print(path_check)
     if os.path.isfile(path_check):
-        print('achou file')
         return True
     else:
         raise Error('FILE NOT FOUND check file')
-        print('nao achou file')
         return False
 
 
@@ -127,7 +117,7 @@ def handleResponse(connection):
 
     headerTuple = ('HTTP/1.0 ', f"{response_body['status']}", f"{response_body['statusMessage']}\n", f"{response_body['contentType']}\n","Connection: close\n",'\n')
     formattedResponse ="".join(headerTuple).encode() + response_body['data']
-    print('formattedResponse: \n', formattedResponse)
+    # print('formattedResponse: \n', formattedResponse)
     connection.sendall(formattedResponse)
     connection.close()
 
