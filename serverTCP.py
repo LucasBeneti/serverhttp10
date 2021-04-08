@@ -24,16 +24,6 @@ file_extension_dict = {
     'webp':'Content-Type: image/webp',
 }
 
-def encodeImage(fileName):
-    try:
-        with open(fileName,'rb') as imageFile:
-            encoded_res = base64.b64encode(imageFile.read())
-    except:
-        raise Error('Erro na leitura da imagem')
-        encoded_res = ''
-    finally:
-        return str(encoded_res)
-
 def getErrorResponse():
     with open("src/404.html","rb") as file_reader:
             file_content = file_reader.read()
@@ -123,12 +113,3 @@ while 1:
 
 
 serverSocket.close()
-
-# esse erro tá acontecendo depois de um tempo do servidor não receber nenhum request
-# Unhandled exception in thread started by <function handleResponse at 0x7fd9cbc90158>
-# Traceback (most recent call last):
-#   File "serverTCP.py", line 126, in handleResponse
-#     response_body = parseRequest(request)
-#   File "serverTCP.py", line 105, in parseRequest
-#     fileNameRaw = request.split('\n')[0].split(' ')[1]
-# IndexError: list index out of range
