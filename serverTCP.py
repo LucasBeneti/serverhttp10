@@ -4,7 +4,7 @@ import _thread
 import base64
 
 # ip do note na rede local
-HOST = '192.168.0.78'
+HOST = '192.168.0.107'
 PORT = 12000 # porta aleatória
 
 serverSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -32,20 +32,18 @@ def encodeImage(fileName):
         raise Error('Erro na leitura da imagem')
         encoded_res = ''
     finally:
-        # print(encoded_res)
         return str(encoded_res)
 
 def getErrorResponse():
-    file_reader = open('src/404.html')
-    responseContent = file_reader.read()
-    file_reader.close()
+    with open("src/404.html","rb") as file_reader:
+            file_content = file_reader.read()
     responseStatus = 404
     statusMessage = 'Not Found'
     contentType = file_extension_dict['html']
     final_response = {
         'status': responseStatus,
         'statusMessage': statusMessage,
-        'data': responseContent,
+        'data': file_content,
         'contentType': contentType,
     }
     return final_response
@@ -54,8 +52,6 @@ def getResponseContent(fileName):
     file_extension = fileName.split('.')[-1]
     img_extensions = ['gif', 'png', 'jpeg', 'bmp', 'webp']
     final_response = {}
-    # print('extensao da file:',file_extension)
-    # print('filename entrando na getContent', fileName)
     if (fileName == ''):
         print('entrou no primeiro if do getContent')
         with open("src/index.html","rb") as file_reader:
@@ -105,6 +101,7 @@ def parseRequest(request):
         else:
             raise Error('FILE NOT FOUND parseRequest')
     except:
+        print('--- foi pra pagina de erro -------')
         response = getErrorResponse()
     finally:
         return response
@@ -117,7 +114,6 @@ def handleResponse(connection):
 
     headerTuple = ('HTTP/1.0 ', f"{response_body['status']}", f"{response_body['statusMessage']}\n", f"{response_body['contentType']}\n","Connection: close\n",'\n')
     formattedResponse ="".join(headerTuple).encode() + response_body['data']
-    # print('formattedResponse: \n', formattedResponse)
     connection.sendall(formattedResponse)
     connection.close()
 
@@ -125,7 +121,6 @@ while 1:
     client_connection, client_addr = serverSocket.accept()
     _thread.start_new_thread(handleResponse, (client_connection,))
 
-    
 
 serverSocket.close()
 

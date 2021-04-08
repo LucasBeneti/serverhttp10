@@ -5,21 +5,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="styles.css" media="screen" />
-    <title>Inicio</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,800;1,300&display=swap"
+      rel="stylesheet"
+    />
+    <title>Página inicial</title>
   </head>
   <body>
-    <head>
-      <h1>HELLO WORLD...(nao da pra mostrar outra coisa)</h1>
-    </head>
-    <main>
-      <head>
-        Aqui vai o titulo da parada
-      </head>
-      <section>
-        <div>Aqui dentro vai um teste de enviar uma imagem</div>
-        <img src="images/lucasAvatar.jpeg" alt="foto minha" />
+    <div class="grid-container">
+      <section class="header">
+        <h1>Trabalho de Redes - Server HTTP 1.0</h1>
       </section>
-    </main>
-    <footer>criado com muito carinho por Lukita da Galera</footer>
+
+      <section class="mainContainer">
+        <div class="mainText">
+          O objetivo final desse trabalho é criar um servidor HTTP com
+          funcionamentos básicos especificados pelo protocolo HTTP 1.0
+          <a href="/faq.html">Ir para página FAQ</a>
+        </div>
+        <div class="avatar">
+          <span style="color: rgb(210, 210, 210)"
+            >Aqui é só pra mostrar que foi possível carregar uma imagem.</span
+          >
+          <img src="images/lucasAvatar.jpeg" alt="foto minha" />
+        </div>
+      </section>
+      <footer class="footer">
+        Footer criado apenas pra provar que é possível ele fica fixo na pé da
+        página. ™
+      </footer>
+    </div>
   </body>
 </html>
